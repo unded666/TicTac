@@ -26,7 +26,7 @@ class tic_tac_toe_board:
         O = []
         for i, R in enumerate(rowz):
             C = colz [i]
-            O.append (self.board [C][A])
+            O.append (self.board [C][R])
         
         if np.abs (sum(O)) == 3:
             if sum(O) == 3:
@@ -83,7 +83,16 @@ class tic_tac_toe_board:
     def show_valid_moves(self):
         Moves = self.__valid_moves()
         print (Moves)
-        
+    
+    def __extract_rowcols (self, InCoords):
+        rowz = []
+        colz = []
+        for coord in InCoords:
+            rowz.append (coord[0])
+            colz.append (coord[1])
+            
+        return rowz, colz    
+    
     def __game_result (self):
         """ determines if there is currently a winner. Returns the following:
                 -1 : X wins
@@ -94,12 +103,49 @@ class tic_tac_toe_board:
         scenarios = []
         # rows
         for R in list ('XYZ'):
-            scenario.append ([[R, 'A'], [R, 'B'], [R, 'C']])
+            scenarios.append ([[R, 'A'], [R, 'B'], [R, 'C']])
         for C in list ('ABC'):
             scenarios.append ([['X', C], ['Y', C], ['Z', C]])
         scenarios.append ([['X', 'A'], ['Y', 'B'], ['Z', 'C']])
         scenarios.append ([['X', 'C'], ['Y', 'B'], ['Z', 'A']])
         result = 0
         for scen in scenarios:
-            R = self.__is_winner ()
+            rz, cz = self.__extract_rowcols (scen)
+            R = self.__is_winner (rz, cz)
+            if R != 0:
+                result = R
+        if result == 0: #check for a draw
+            valid_moves = self.__valid_moves()
+            if len(valid_moves) == 0:
+                result = 2
+        return result
+    
+    def who_won(self):
+        R = self.__game_result()
+        result_key = {0 : 'The game is still ongoing',
+                      1 : 'Noughts have won the game',
+                      -1 : 'Crosses have won the game',
+                      2 : 'The game has ended in a draw'}
+        print (result_key[R])
         
+                
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    

@@ -35,6 +35,14 @@ class tic_tac_toe_board:
                 return -1
         else:
             return 0
+    
+    def board_shape (self, InShape : np.ndarray):
+        Dummy = pd.DataFrame (InShape, columns = self.board.columns,
+                              index = self.board.index)
+        self.board = Dummy
+        
+    def reset_board (self):
+        self.board = self.board.replace ([-1, 0, 1], 0)
         
     def draw_board (self):
         rail = '   |'*2

@@ -88,6 +88,9 @@ class tic_tac_toe_board:
         if not placed:
             print ('piece not placed, square already taken')
     
+    def get_valid_moves (self):
+        return self.__valid_moves ()
+    
     def show_valid_moves(self):
         Moves = self.__valid_moves()
         print (Moves)

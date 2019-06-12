@@ -12,7 +12,9 @@ class toe_strat:
     s_call = None
     u_call = None
     
-    def __init__ (self, stratcall, updatecall):
+    def __init__ (self, strat):
+        stratcall = self.get_strategy (strat)
+        updatecall = self.get_update (strat)
         self.s_call = stratcall
         self.u_call = updatecall
         
@@ -23,16 +25,24 @@ class toe_strat:
         
         self.u_call (**kwargs)
 
-def __random_strat (board, moves):
+    def __random_strat (board, moves):
     
-    return random.choice (moves)
+        return random.choice (moves)
 
-def __update_random_strat (**args):
+    def __update_random_strat (**args):
     
-    return Null
-
-def get_strategy (strat) :
+        return Null
     
-    strat_list = {'random' : __random_strat}
+    def get_strategy (self, strat) :
     
-    return strat_list [strat]
+        strat_list = {'random' : self.__random_strat}
+    
+        return strat_list [strat]
+    
+    def get_update (self, strat):
+        
+        strat_list = {'random' : self.__update_random_strat}        
+        
+        return strat_list [strat]
+    
+    
